@@ -307,6 +307,13 @@ func exec(stmt *sqlite.Stmt, flags uint8, opts *ExecOptions) (err error) {
 }
 
 func setArg(stmt *sqlite.Stmt, i int, v reflect.Value) {
+	if v.Kind() == reflect.Ptr {
+		if v.IsNil() {
+			stmt.BindNull(i)
+			return
+		}
+		v = v.Elem()
+	}
 	switch v.Kind() {
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
 		stmt.BindInt64(i, v.Int())
