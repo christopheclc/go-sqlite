@@ -1,4 +1,4 @@
-module github.com/christopheclc/go/sqlite
+module github.com/christopheclc/go-sqlite
 
 go 1.20
 
